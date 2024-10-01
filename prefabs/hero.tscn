@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://barnyuotfekrn"]
+
+[ext_resource type="Script" path="res://scripts/hero.gd" id="1_tgaio"]
+[ext_resource type="Shader" path="res://shader/hero_end.gdshader" id="2_chnwn"]
+[ext_resource type="Texture2D" uid="uid://cll12nswspds2" path="res://sprites/03.png" id="2_hx1id"]
+[ext_resource type="Script" path="res://scripts/hero_state_machine.gd" id="3_v3xiw"]
+[ext_resource type="Script" path="res://scripts/idle.gd" id="4_2pltv"]
+[ext_resource type="Script" path="res://scripts/move.gd" id="5_pk5r2"]
+[ext_resource type="Script" path="res://scripts/end.gd" id="6_42c05"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rj61x"]
+resource_local_to_scene = true
+shader = ExtResource("2_chnwn")
+shader_parameter/is_end = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dgrca"]
+size = Vector2(8, 8)
+
+[node name="hero" type="Node2D"]
+script = ExtResource("1_tgaio")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rj61x")
+texture = ExtResource("2_hx1id")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_dgrca")
+
+[node name="hero_state_machine" type="Node2D" parent="."]
+script = ExtResource("3_v3xiw")
+initial_state = NodePath("idle")
+
+[node name="idle" type="Node2D" parent="hero_state_machine"]
+script = ExtResource("4_2pltv")
+
+[node name="move" type="Node2D" parent="hero_state_machine"]
+script = ExtResource("5_pk5r2")
+
+[node name="end" type="Node2D" parent="hero_state_machine"]
+script = ExtResource("6_42c05")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="hero_move" from="hero_state_machine/move" to="." method="_on_move_hero_move"]
+[connection signal="hide_move_range" from="hero_state_machine/move" to="." method="_on_move_hide_move_range"]
+[connection signal="show_move_range" from="hero_state_machine/move" to="." method="_on_move_show_move_range"]

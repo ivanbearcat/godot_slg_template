@@ -1,0 +1,7 @@
+{"hero":
+	{
+	"01": {"h_id": "01", "h_name": "小蓝", "lv": 1, "h_type": 1, "x": 12, "y": 12, "move_type": "land", "move_distance": 3, "atk": 1, "def": 0, "luk": 1, "hp": 3, "dex": 70, "agi": 10},
+	"02": {"h_id": "02", "h_name": "小黄", "lv": 1, "h_type": 1, "x": 8, "y": 10, "move_type": "land", "move_distance": 3, "atk": 1, "def": 0, "luk": 1, "hp": 3, "dex": 70, "agi": 10},
+	"03": {"h_id": "03", "h_name": "小绿", "lv": 1, "h_type": 1, "x": 8, "y": 9, "move_type": "land", "move_distance": 3, "atk": 1, "def": 0, "luk": 1, "hp": 3, "dex": 70, "agi": 10}
+	}
+}
